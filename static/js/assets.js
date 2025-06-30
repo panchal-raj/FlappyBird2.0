@@ -194,21 +194,44 @@ function checkAssets() {
 }
 
 // Function to resize canvas and adjust game elements accordingly
+// function resizeCanvas(canvas, gameState) {
+//     // Get actual window dimensions
+//     const containerWidth = window.innerWidth;
+//     const containerHeight = window.innerHeight;
+    
+//     canvas.width = containerWidth;
+//     canvas.height = containerHeight;
+    
+//     // Update ground position
+//     if (assets.ground) {
+//         gameState.ground.y = canvas.height - assets.ground.height;
+//     }
+    
+//     // Also update bird starting position
+//     gameState.bird.y = canvas.height / 2 - gameState.bird.height;
+// }
+// Function to resize canvas and adjust game elements accordingly
 function resizeCanvas(canvas, gameState) {
     // Get actual window dimensions
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight;
-    
+
     canvas.width = containerWidth;
     canvas.height = containerHeight;
-    
+
     // Update ground position
     if (assets.ground) {
+        // Ensure gameState.ground exists before setting its y property
+        if (!gameState.ground) {
+            gameState.ground = {};
+        }
         gameState.ground.y = canvas.height - assets.ground.height;
     }
-    
-    // Also update bird starting position
-    gameState.bird.y = canvas.height / 2 - gameState.bird.height;
+
+    // Also update bird starting position to be relative to the new height
+    if (gameState.bird) {
+        gameState.bird.y = canvas.height / 3;
+    }
 }
 
 // Export assets and functions
